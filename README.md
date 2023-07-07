@@ -38,10 +38,10 @@
 		expires_at 	=> 2000-00-00T00:00:00.000000Z
 	}
 
-### getRootNodes
+## getRootNodes
 Получение узлов верхнего уровня.
 
-#### Метод
+### Метод
 
 	getRootNodes() : array
 
@@ -70,10 +70,10 @@
 		]
 	}
 
-### getNodeByID
+## getNodeByID
 Получение узла по ID.
 
-#### Метод
+### Метод
 
 	getNodeByID(int $node_id = null) : array
 
@@ -145,10 +145,10 @@
 		]
 	}
 
-### getNodeBySlug
+## getNodeBySlug
 Получение узла по Slug, полному или частичному.
 
-#### Метод
+### Метод
 
 	getNodeBySlug(string $slug = null) : array
 
