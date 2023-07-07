@@ -51,7 +51,7 @@
 		nodes => [
 			{
 				id				=> 1,
-				parent_node_id 	=> 0,
+				parent_node_id	=> 0,
 				title			=> Узел,
 				slug			=> node
 				full_slug		=> parentOfParentNode/parentNode/node
@@ -60,7 +60,7 @@
 			},
 			{
 				id				=> 2,
-				parent_node_id 	=> 0,
+				parent_node_id	=> 0,
 				title			=> Узел 2,
 				slug			=> node-2
 				full_slug		=> parentOfParentNode/parentNode/node-2
@@ -81,7 +81,7 @@
 
 	{
 		id				=> 5,
-		parent_node_id 	=> 0,
+		parent_node_id	=> 0,
 		title			=> Узел 3,
 		slug			=> node-3
 		full_slug		=> node-1/node-2/node-3
@@ -90,7 +90,7 @@
 		breadcrumbs 	=> [
 			{
 				id				=> 1,
-				parent_node_id 	=> null,
+				parent_node_id	=> null,
 				title			=> Узел 1,
 				slug			=> node-1
 				full_slug		=> node-1
@@ -99,7 +99,7 @@
 			},
 			{
 				id				=> 2,
-				parent_node_id 	=> 1,
+				parent_node_id	=> 1,
 				title			=> Узел 2,
 				slug			=> node-2
 				full_slug		=> node-1/node-2
@@ -110,7 +110,7 @@
 		nodes => [
 			{
 				id				=> 10,
-				parent_node_id 	=> 5,
+				parent_node_id	=> 5,
 				title			=> Узел 4,
 				slug			=> node-4
 				full_slug		=> node-1/node-2/node-3/node-4
@@ -119,7 +119,7 @@
 			},
 			{
 				id				=> 15,
-				parent_node_id 	=> 5,
+				parent_node_id	=> 5,
 				title			=> Узел 5,
 				slug			=> node-5
 				full_slug		=> node-1/node-2/node-3/node-5
