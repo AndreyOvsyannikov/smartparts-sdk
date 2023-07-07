@@ -18,10 +18,22 @@ class Adapater
 		return $this->callAPI('getAccountStatus');
 	}
 
-	public function getNodes(int $node_id = null) : array
+	public function getRootNodes() : array
 	{
-		return $this->callAPI('getNodes', [
-			'node_id' => $node_id,
+		return $this->callAPI('getRootNodes');
+	}
+
+	public function getNodeByID(int $node_id = null) : array
+	{
+		return $this->callAPI('getNodeByID', [
+			'id' => $node_id,
+		]);
+	}
+
+	public function getNodeBySlug(string $slug = null) : array
+	{
+		return $this->callAPI('getNodeBySlug', [
+			'slug' => $slug,
 		]);
 	}
 
@@ -52,7 +64,7 @@ class Adapater
 		return $this->token;
 	}
 
-	private function callAPI(string $method, array $data = [])
+	private function callAPI(string $method, array $data = []) : array
 	{
 		$requestUrl = $this->host . '/' . $method;
 
@@ -88,6 +100,9 @@ class Adapater
 
 		curl_close($curl);
 
-		return $output;
+		return $output && count($output) ? $output : [
+			'error'		=> 0,
+			'message'	=> 'No response',
+		];
 	}
 }
