@@ -1,96 +1,157 @@
 # smartparts SDK
 
 ## Установка
-
 	composer require smartparts/sdk
 
-## Описание методов
+## Ошибки
+В случае ошибки по любому из методов будет возвращен ответ с кодом ошибки и сообщением следующего вида
 
-### getAccountStatus
+	{
+		error 	=> 7
+		message	=> Couldn't connect to server
+	}
 
-#### Описание
-
-	getAccountStatus() : array
-
+## getAccountStatus
 Получение статуса аккаунта по текущему токену.
 
-#### Возвращает
-Пример с данными в случае успеха:
+### Метод
+	getAccountStatus() : array
 
-	(
-		[email] => ???@???.??
-		[service] => true // true или false
-	)
+### Пример успешного ответа
 
-Пример с данными в случае ошибки:
+	{
+		email				=> someemail@gmail.com
+		service				=> true|false
+		token_expires_at	=> 2000-00-00T00:00:00.000000Z
+	}
 
-	(
-		[error] => 7 // номер ошибки
-		[message] => Couldn't connect to server // текст ошибки
-	)
-
-### getNewToken
-
-#### Описание
-
-	getNewToken() : array
-
+## getNewToken
 Перевыпуск токена, текущий токен (по которому сделан запрос) будет инвалидирован в случае успеха.
 
-#### Возвращает
-Пример с данными в случае успеха:
+### Метод
+	getNewToken() : array
 
-	(
-		[token] => 29|Smil5VQ3ztTmXn00mJyphixsqHWCXTXC5QlhGW4b
-		[expires_at] => 2023-07-06T03:58:01.788435Z
-	)
+### Пример успешного ответа
 
-Пример с данными в случае ошибки:
+	{
+		token 		=> 29|Smil5VQ3ztTmXn00mJyphixsqHWCXTXC5QlhGW4b
+		expires_at 	=> 2000-00-00T00:00:00.000000Z
+	}
 
-	(
-		[error] => 7 // номер ошибки
-		[message] => Couldn't connect to server // текст ошибки
-	)
+### getRootNodes
+Получение узлов верхнего уровня.
 
-### getNodes
+#### Метод
 
-#### Описание
+	getRootNodes() : array
 
-	getNodes(int $node_id = null) : array
+### Пример успешного ответа
 
-Получение узлов. Если node_id передан, то получит его дочерние узлы, если не передан или null, то получит узлы верхнего уровня (производителей)
+	{
+		nodes => [
+			{
+				id				=> 1,
+				parent_node_id 	=> 0,
+				title			=> Узел,
+				slug			=> node
+				full_slug		=> parentOfParentNode/parentNode/node
+				type			=> manufacturer,
+				type_title		=> Производитель
+			},
+			{
+				id				=> 2,
+				parent_node_id 	=> 0,
+				title			=> Узел 2,
+				slug			=> node-2
+				full_slug		=> parentOfParentNode/parentNode/node-2
+				type			=> manufacturer,
+				type_title		=> Производитель
+			}
+		]
+	}
 
-#### Возвращает
-Пример с данными в случае успеха:
+### getNodeByID
+Получение узла по ID.
 
-	(
-		[nodes] => Array
-			(
-				[0] => Array
-					(
-						[id] => 1
-						[parent_node_id] => 
-						[title] => Русская механика
-						[type] => manufacturer
-						[type_title] => Производитель
-						[parts] => Array
-							(
-								[0] => Array
-								(
-									[id] => 6518
-									[title] => Выпрямитель T011E020
-									[sku] => 0107595
-									[note] => ''
-									[quantity] => 1
-								)
-							)
-					)
-			)
-	)
+#### Метод
 
-Пример с данными в случае ошибки:
+	getNodeByID(int $node_id = null) : array
 
-	(
-		[error] => 7 // номер ошибки
-		[message] => Couldn't connect to server // текст ошибки
-	)
+### Пример успешного ответа
+
+	{
+		id				=> 5,
+		parent_node_id 	=> 0,
+		title			=> Узел 3,
+		slug			=> node-3
+		full_slug		=> node-1/node-2/node-3
+		type			=> manufacturer,
+		type_title		=> Производитель,
+		breadcrumbs 	=> [
+			{
+				id				=> 1,
+				parent_node_id 	=> null,
+				title			=> Узел 1,
+				slug			=> node-1
+				full_slug		=> node-1
+				type			=> manufacturer,
+				type_title		=> Производитель
+			},
+			{
+				id				=> 2,
+				parent_node_id 	=> 1,
+				title			=> Узел 2,
+				slug			=> node-2
+				full_slug		=> node-1/node-2
+				type			=> manufacturer,
+				type_title		=> Производитель
+			}
+		],
+		nodes => [
+			{
+				id				=> 10,
+				parent_node_id 	=> 5,
+				title			=> Узел 4,
+				slug			=> node-4
+				full_slug		=> node-1/node-2/node-3/node-4
+				type			=> manufacturer,
+				type_title		=> Производитель
+			},
+			{
+				id				=> 15,
+				parent_node_id 	=> 5,
+				title			=> Узел 5,
+				slug			=> node-5
+				full_slug		=> node-1/node-2/node-3/node-5
+				type			=> manufacturer,
+				type_title		=> Производитель
+			}
+		],
+		parts => [
+			{
+				id				=> 1,
+				title			=> Запчасть 1,
+				sku				=> 0x3251
+				note			=> замена для 0x3250
+				quantity		=> 9,
+			},
+			{
+				id				=> 3521,
+				title			=> Запчасть 2,
+				sku				=> S02134
+				note			=> null
+				quantity		=> 2,
+			}
+		]
+	}
+
+### getNodeBySlug
+Получение узла по Slug, полному или частичному.
+
+#### Метод
+
+	getNodeBySlug(string $slug = null) : array
+
+### Пример успешного ответа
+
+	Идентичен методу getNodeByID
