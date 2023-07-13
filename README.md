@@ -57,6 +57,11 @@
 				full_slug		=> parentOfParentNode/parentNode/node
 				type			=> manufacturer,
 				type_title		=> Производитель
+				images			=> [
+					url1,
+					url2
+					...
+				],
 			},
 			{
 				id				=> 2,
@@ -65,7 +70,8 @@
 				slug			=> node-2
 				full_slug		=> parentOfParentNode/parentNode/node-2
 				type			=> manufacturer,
-				type_title		=> Производитель
+				type_title		=> Производитель,
+				images			=> [],
 			}
 		]
 	}
@@ -87,6 +93,11 @@
 		full_slug		=> node-1/node-2/node-3
 		type			=> manufacturer,
 		type_title		=> Производитель,
+		images			=> [
+			url1,
+			url2
+			...
+		],
 		breadcrumbs 	=> [
 			{
 				id				=> 1,
@@ -115,7 +126,8 @@
 				slug			=> node-4
 				full_slug		=> node-1/node-2/node-3/node-4
 				type			=> manufacturer,
-				type_title		=> Производитель
+				type_title		=> Производитель,
+				images			=> [],
 			},
 			{
 				id				=> 15,
@@ -124,7 +136,8 @@
 				slug			=> node-5
 				full_slug		=> node-1/node-2/node-3/node-5
 				type			=> manufacturer,
-				type_title		=> Производитель
+				type_title		=> Производитель,
+				images			=> [],
 			}
 		],
 		parts => [
@@ -134,6 +147,7 @@
 				sku				=> 0x3251
 				note			=> замена для 0x3250
 				quantity		=> 9,
+				images			=> [],
 			},
 			{
 				id				=> 3521,
@@ -141,6 +155,7 @@
 				sku				=> S02134
 				note			=> null
 				quantity		=> 2,
+				images			=> [],
 			}
 		]
 	}
