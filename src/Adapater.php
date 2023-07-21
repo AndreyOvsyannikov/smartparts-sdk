@@ -102,7 +102,7 @@ class Adapater
 
 		return $output && count($output) ? $output : [
 			'error'		=> 0,
-			'message'	=> 'No response',
+			'message'	=> 'No response.',
 		];
 	}
 }
