@@ -109,16 +109,15 @@
         ],
         parts => (array) Массив объектов [
             {
-                id                  => (int) id запчасти,
-                title               => (string) Наименование,
-                sku                 => (string) Артикул,
-                note                => (string|null) Заметка,
-                quantity            => (int) Кол-во в узле,
-                images              => (array) Массив ссылок изображений
-                scheme_number       => (int) Номер на схеме
-                scheme_subnumber    => (int) Дополнительный номер на схеме
-                scheme_cords_exists => (bool) Есть ли координаты
-                scheme_cords        => (array) Массив положений на схеме [
+                id                      => (int) id запчасти,
+                title                   => (string) Наименование,
+                sku                     => (string) Артикул,
+                note                    => (string|null) Заметка,
+                quantity                => (int) Кол-во в узле,
+                images                  => (array) Массив ссылок изображений
+                scheme_title            => (string|null) Номер на схеме
+                scheme_description      => (string|null) Дополнительный номер на схеме
+                scheme_cords            => (array) Массив положений на схеме [
                     {
                         topLeft         => [
                             x               => (int),
