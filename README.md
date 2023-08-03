@@ -81,7 +81,21 @@
         type            => (string) тип узла,
         type_title      => (string) Наименование типа узла
         images          => (array) Массив ссылок изображений
-        scheme          => (string|null) Ссылка на изображение схемы
+        scheme          => (object) {
+            url             => (string|null) Ссылка на изображение схемы
+            cords           => (object|null) Объект положений на схеме {
+                (int) Ключ является номером на схеме => (array) Массив координат {
+                    [
+                        x_left => (int)
+                        x_right => (int)
+                        y_top => (int)
+                        y_bottom => (int)
+                    ],
+                    ...
+                },
+                ...
+            }
+		},
         breadcrumbs 	=> (array) Массив объектов [
             {
                 id              => (int) id узла,
@@ -117,26 +131,6 @@
                 images                  => (array) Массив ссылок изображений
                 scheme_title            => (string|null) Номер на схеме
                 scheme_description      => (string|null) Дополнительный номер на схеме
-                scheme_cords            => (array) Массив положений на схеме [
-                    {
-                        topLeft         => [
-                            x               => (int),
-                            y               => (int),
-                            relative_x      => (float) в процентах,
-                            relative_y      => (float) в процентах,
-                        ],
-                        topRight        => [
-                            ...
-                        ],
-                        bottomRight     => [
-                            ...
-                        ],
-                        bottomLeft      => [
-                            ...
-                        ],
-                    },
-                    ...
-                ]
             },
             ...
         ]
