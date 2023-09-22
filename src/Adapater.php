@@ -38,4 +38,8 @@ class Adapater
     public function catalog() : ResourceCatalog {
         return new ResourceCatalog($this->host, $this->token);
     }
+
+    public function customer() : ResourceCustomer {
+        return new ResourceCustomer($this->host, $this->token);
+    }
 }
