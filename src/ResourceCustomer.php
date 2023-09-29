@@ -37,17 +37,17 @@ class ResourceCustomer extends ResourceAbstract
         ]);
     }
 
-    public function addGarage(string $customer_id, string $node_slug) : array {
-        return $this->callAPI('customer/addGarage', [
+    public function selectGarage(string $customer_id, string $model_slug) : array {
+        return $this->callAPI('customer/selectGarage', [
             'id'            => $customer_id,
-            'slug'          => $node_slug,
+            'slug'          => $model_slug,
         ]);
     }
 
-    public function removeGarage(string $customer_id, string $node_slug) : array {
+    public function removeGarage(string $customer_id, string $model_slug) : array {
         return $this->callAPI('customer/removeGarage', [
             'id'            => $customer_id,
-            'slug'          => $node_slug,
+            'slug'          => $model_slug,
         ]);
     }
 
