@@ -2,44 +2,31 @@
 
 namespace Smartparts;
 
+use Smartparts\Resources\ResourceClient;
+use Smartparts\Resources\ResourceCatalog;
+
 class Adapater
 {
-    private $host;
-    private $token;
+    private $api;
+    private $client;
+    private $catalog;
 
     public function __construct(string $host, string $token)
     {
-        $this->host = $host;
-        $this->token = $token;
+        $this->api = new RestAPI($host, $token);
+        $this->client = new ResourceClient($this->api);
+        $this->catalog = new ResourceCatalog($this->api);
     }
 
-    public function setHost(string $host) : self {
-        $this->host = $host;
-        return $this;
-    }
-
-    public function setToken(string $token) : self {
-        $this->token = $token;
-        return $this;
-    }
-
-    public function getHost() : string {
-        return $this->host;
-    }
-
-    public function getToken() : string {
-        return $this->token;
+    public function api() : RestAPI {
+        return $this->api;
     }
 
     public function client() : ResourceClient {
-        return new ResourceClient($this->host, $this->token);
+        return $this->client;
     }
 
     public function catalog() : ResourceCatalog {
-        return new ResourceCatalog($this->host, $this->token);
-    }
-
-    public function customer() : ResourceCustomer {
-        return new ResourceCustomer($this->host, $this->token);
+        return $this->catalog;
     }
 }
