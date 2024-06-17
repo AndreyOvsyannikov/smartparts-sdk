@@ -28,7 +28,7 @@ class RestAPI
     {
         $client = new Client([
             'base_uri' => $this->host,
-            'timeout'  => 2.0,
+            'timeout'  => 5.0,
         ]);
 
         $headers = [

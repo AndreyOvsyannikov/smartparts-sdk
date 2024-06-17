@@ -23,15 +23,21 @@ class RestAPIResponse
 
     private function __construct(ResponseInterface|null $guzzlyResponse = null, \Exception|null $exception = null)
     {
-        $this->guzzlyResponse = $guzzlyResponse;
-        $this->exception = $exception;
-        $this->status = $guzzlyResponse?->getStatusCode();
+		$this->guzzlyResponse = $guzzlyResponse;
+		$this->exception = $exception;
 
-        try {
-            $this->body = $guzzlyResponse ? json_decode($guzzlyResponse?->getBody(), true) : [];
-        } catch (\Throwable $th) {
-            $this->body = [];
-        }
+		if ( $guzzlyResponse ) {
+			$this->status = $guzzlyResponse?->getStatusCode();
+
+			try {
+				$this->body = $guzzlyResponse ? json_decode($guzzlyResponse?->getBody(), true) : [];
+			} catch (\Throwable $th) {
+				$this->body = [];
+			}
+		} else if ( $exception ) {
+			$this->status = $exception->getCode();
+			$this->body = [];
+		}
     }
 
     public function status()
