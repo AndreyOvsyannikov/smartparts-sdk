@@ -3,34 +3,35 @@
 namespace Smartparts;
 
 use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Exception\RequestException;
 
 class RestAPIResponse
 {
-    private ResponseInterface|null $guzzlyResponse;
-    private \Exception|null $exception;
-    private int|null $status;
-    private array $body;
+    private $guzzlyResponse;
+    private $exception;
+    private $status;
+    private $body;
 
     public static function createFromResponse(ResponseInterface $response)
     {
         return new RestAPIResponse($response);
     }
 
-    public static function createFromException(\Exception $e)
+    public static function createFromException(RequestException $exception)
     {
-        return new RestAPIResponse(null, $e);
+        return new RestAPIResponse($exception->getResponse(), $exception);
     }
 
-    private function __construct(ResponseInterface|null $guzzlyResponse = null, \Exception|null $exception = null)
+    private function __construct($guzzlyResponse = null, $exception = null)
     {
 		$this->guzzlyResponse = $guzzlyResponse;
 		$this->exception = $exception;
 
 		if ( $guzzlyResponse ) {
-			$this->status = $guzzlyResponse?->getStatusCode();
+			$this->status = $guzzlyResponse->getStatusCode();
 
 			try {
-				$this->body = $guzzlyResponse ? json_decode($guzzlyResponse?->getBody(), true) : [];
+				$this->body = $guzzlyResponse ? json_decode($guzzlyResponse->getBody(), true) : [];
 			} catch (\Throwable $th) {
 				$this->body = [];
 			}
