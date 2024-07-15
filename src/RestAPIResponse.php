@@ -2,32 +2,37 @@
 
 namespace Smartparts;
 
-use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\TransferException;
+use Psr\Http\Message\ResponseInterface;
 
 class RestAPIResponse
 {
-    private $guzzlyResponse;
-    private $exception;
-    private $status;
-    private $body;
+	private $guzzlyResponse;
+	private $exception;
+	private $status;
+	private $body;
 
-    public static function createFromResponse(ResponseInterface $response)
-    {
-        return new RestAPIResponse($response);
-    }
+	public static function createFromResponse(ResponseInterface $response)
+	{
+		return new RestAPIResponse($response);
+	}
 
-    public static function createFromException(RequestException $exception)
-    {
-        return new RestAPIResponse($exception->getResponse(), $exception);
-    }
+	public static function createFromException(TransferException $exception)
+	{
+		if ( $exception instanceof RequestException ) {
+			return new RestAPIResponse($exception->getResponse(), $exception);
+		} else {
+			return new RestAPIResponse(null, $exception);
+		}
+	}
 
-    private function __construct($guzzlyResponse = null, $exception = null)
-    {
+	private function __construct($guzzlyResponse = null, $exception = null)
+	{
 		$this->guzzlyResponse = $guzzlyResponse;
 		$this->exception = $exception;
 
-		if ( $guzzlyResponse ) {
+		if ($guzzlyResponse) {
 			$this->status = $guzzlyResponse->getStatusCode();
 
 			try {
@@ -35,29 +40,29 @@ class RestAPIResponse
 			} catch (\Throwable $th) {
 				$this->body = [];
 			}
-		} else if ( $exception ) {
+		} else if ($exception) {
 			$this->status = $exception->getCode();
 			$this->body = [];
 		}
-    }
+	}
 
-    public function status()
-    {
-        return $this->status;
-    }
+	public function status()
+	{
+		return $this->status;
+	}
 
-    public function body()
-    {
-        return $this->body;
-    }
+	public function body()
+	{
+		return $this->body;
+	}
 
-    public function guzzlyResponse()
-    {
-        return $this->guzzlyResponse;
-    }
+	public function guzzlyResponse()
+	{
+		return $this->guzzlyResponse;
+	}
 
-    public function exception()
-    {
-        return $this->exception;
-    }
+	public function exception()
+	{
+		return $this->exception;
+	}
 }
